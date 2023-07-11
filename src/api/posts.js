@@ -4,7 +4,7 @@ import axios from "axios";
 // 조회
 const getPosts = async () => {
   const response = await axios.get("http://localhost:4000/posts");
-  return response.data;
+  return response.data.sort((a, b) => b.id - a.id);
 };
 
 // 추가

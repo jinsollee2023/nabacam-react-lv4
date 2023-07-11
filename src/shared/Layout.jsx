@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import { styled } from "styled-components";
 
 const Layout = ({ children }) => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  console.log(scrollPosition);
+
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+  }, []);
+
   return (
     <>
-      <StHeader>
+      <StHeader
+        style={
+          scrollPosition > 100 ? { boxShadow: "0 1px 10px 1px skyblue" } : null
+        }
+      >
         <Header />
       </StHeader>
 
@@ -21,6 +36,7 @@ const StHeader = styled.header`
   width: 100%;
   top: 0;
   z-index: 999;
+  box-shadow: ${(props) => props.color || null};
 `;
 
 const StLayout = styled.div`

@@ -6,6 +6,7 @@ import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
 import GlobalStyle from "../style/GlobalStyles";
 import Layout from "./Layout";
+import PostEdit from "../pages/PostEdit";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/post-write" element={<PostWrite />} />
+          <Route path="/post-edit" element={<PostEdit />} />
           <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
       </Layout>

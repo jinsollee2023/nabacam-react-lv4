@@ -25,6 +25,8 @@ ${reset}
 
   body {
     font-family: 'CookieRun-Regular';
+    margin-top: 100px;
+
 
     }
 `;
