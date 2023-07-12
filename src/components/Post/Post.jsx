@@ -2,14 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { BiLike, BiDislike } from "react-icons/bi";
+import Button from "../common/Button/Button";
 
 const Post = ({ item }) => {
   const navigate = useNavigate();
+  const detailBtnHandler = () => {
+    navigate(`/post/${item.id}`);
+  };
   return (
-    <S.PostContainer key={item.id}>
-      <div>{item.type == "goodItem" ? <BiLike /> : <BiDislike />}</div>
-      <div>{item.title}</div>
-      <button onClick={() => navigate(`/post/${item.id}`)}>상세</button>
+    <S.PostContainer key={item.id} onClick={detailBtnHandler}>
+      <S.Type>{item.type == "goodItem" ? <BiLike /> : <BiDislike />}</S.Type>
+      <S.Title>{item.title}</S.Title>
+      <S.Price>{Number(item.price).toLocaleString()}원</S.Price>
     </S.PostContainer>
   );
 };
@@ -23,6 +27,21 @@ const S = {
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: skyblue 2px solid;
+    border-bottom: #eb455f 1.5px solid;
+
+    cursor: pointer;
+  `,
+  Type: styled.span`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+  `,
+  Title: styled.span`
+    width: 70%;
+    margin-left: 50px;
+  `,
+  Price: styled.span`
+    margin-left: auto;
+    margin-right: 3%;
   `,
 };

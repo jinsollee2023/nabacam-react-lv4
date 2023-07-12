@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { getPosts } from "../../api/posts";
 import Post from "../Post/Post";
+import usePosts from "../../hooks/usePosts";
+import Button from "../common/Button/Button";
+import { styled } from "styled-components";
 
 const PostList = () => {
-  const { isLoading, isError, data } = useQuery("posts", getPosts, {
-    keepPreviousData: true,
-  });
+  const { isLoading, isError, data } = usePosts();
   const [searchTxt, setSearchTxt] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     setPosts(data);
   }, [data]);
-
-  console.log("posts", posts);
 
   if (isLoading) {
     return <div>로딩중!</div>;
@@ -38,43 +35,36 @@ const PostList = () => {
     setPosts(filteredPost);
   };
 
+  const allBtnHandler = () => {
+    setPosts(data);
+  };
+
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <S.BtnContainer>
         <form onSubmit={searchHandler}>
-          <input
+          <S.SearchInput
             value={searchTxt}
             onChange={(e) => {
               setSearchTxt(e.target.value);
             }}
           />
-          <button>검색</button>
+          <Button title={"검색"} type={"filter"} />
         </form>
-
         <div>
-          <button
-            onClick={() => {
-              setPosts(data);
-            }}
-          >
-            전체
-          </button>
-          <button
-            onClick={() => {
-              filterBtnHandler("goodItem");
-            }}
-          >
-            잘산템
-          </button>
-          <button
-            onClick={() => {
-              filterBtnHandler("badItem");
-            }}
-          >
-            못산템
-          </button>
+          <Button onClick={allBtnHandler} title={"전체"} type={"filter"} />
+          <Button
+            onClick={() => filterBtnHandler("goodItem")}
+            title={"잘산템"}
+            type={"filter"}
+          />
+          <Button
+            onClick={() => filterBtnHandler("badItem")}
+            title={"못산템"}
+            type={"filter"}
+          />
         </div>
-      </div>
+      </S.BtnContainer>
       {posts?.map((item) => {
         return <Post key={item.id} item={item} />;
       })}
@@ -83,3 +73,16 @@ const PostList = () => {
 };
 
 export default PostList;
+
+const S = {
+  BtnContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 10px;
+  `,
+  SearchInput: styled.input`
+    width: 300px;
+    height: 30px;
+  `,
+};

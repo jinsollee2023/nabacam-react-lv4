@@ -8,7 +8,7 @@ const PostEdit = () => {
 
   return (
     <div>
-      <PostWriteBox post={post} />
+      <PostWriteBox filteredPost={post} />
     </div>
   );
 };

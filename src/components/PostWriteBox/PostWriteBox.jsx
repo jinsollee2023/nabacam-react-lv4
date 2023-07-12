@@ -1,60 +1,27 @@
-import React, { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { addPost, patchPost } from "../../api/posts";
+import React from "react";
 import { styled } from "styled-components";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import Button from "../common/Button/Button";
+import usePostWriteBox from "../../hooks/usePostWriteBox";
+import "./postWriteBox.css";
 
-const PostWriteBox = ({ post }) => {
-  console.log("post", post);
-  // 여기
-  const [title, setTilte] = useState(post ? post.title : "");
-  const [type, setType] = useState(post ? post.type : "goodItem");
-  const [price, setPrice] = useState(post ? post.price : null);
-  const [content, setContent] = useState(post ? post.content : "");
-
-  const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
-
-  // 여기
-  const addMutation = useMutation(addPost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("post");
-      alert("등록 완료!!!");
-    },
-  });
-
-  const updateMutation = useMutation(patchPost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("posts");
-      alert("수정 성공!");
-    },
-  });
-
-  // 여기
-  const addBtnHandler = (e) => {
-    e.preventDefault();
-    const newPost = {
-      title,
-      type,
-      price,
-      content,
-    };
-    addMutation.mutate(newPost);
-    navigate("/");
-  };
-
-  const EditBtnHandler = (e) => {
-    e.preventDefault();
-    const updatedPost = { id: post.id, title, type, price, content };
-    updateMutation.mutate(updatedPost);
-    navigate(`/post/${post.id}`);
-  };
+const PostWriteBox = ({ filteredPost }) => {
+  const {
+    title,
+    changeTitle,
+    type,
+    changeType,
+    price,
+    changePrice,
+    content,
+    changeContent,
+    addPost,
+    editPost,
+  } = usePostWriteBox(filteredPost);
 
   const customUploadAdapter = (loader) => {
     return {
@@ -67,7 +34,7 @@ const PostWriteBox = ({ post }) => {
             const imgFile = { imgURL: downloadURL };
 
             axios
-              .post("http://localhost:4000/images", imgFile)
+              .post(`${process.env.REACT_APP_SERVER_URL}/images`, imgFile)
               .then((res) => {
                 resolve({
                   default: res.data.imgURL,
@@ -92,8 +59,9 @@ const PostWriteBox = ({ post }) => {
         <S.MainInfoContainer>
           <S.TypeSelect
             onChange={(e) => {
-              setType(e.target.value);
+              changeType(e);
             }}
+            value={type}
           >
             <option value="goodItem">잘산템</option>
             <option value="badItem">못산템</option>
@@ -102,31 +70,35 @@ const PostWriteBox = ({ post }) => {
             value={title}
             placeholder="title"
             onChange={(e) => {
-              setTilte(e.target.value);
+              changeTitle(e);
             }}
           />
           <S.PriceInput
             value={price}
             placeholder="price"
             onChange={(e) => {
-              setPrice(e.target.value);
+              changePrice(e);
             }}
           />
+          <span>원</span>
         </S.MainInfoContainer>
 
         <CKEditor
           editor={ClassicEditor}
-          data={post ? content : ""}
+          data={content}
           config={{ extraPlugins: [uploadPlugin] }}
           onChange={(event, editor) => {
             const data = editor.getData();
-            console.log({ event, editor, data });
-            setContent(data);
+            changeContent(event, data);
           }}
         />
-        <button onClick={post ? EditBtnHandler : addBtnHandler}>
-          {post ? "수정" : "등록"}
-        </button>
+        <S.BtnContainer>
+          <Button
+            onClick={filteredPost ? editPost : addPost}
+            title={filteredPost ? "수정" : "등록"}
+            type={"write"}
+          />
+        </S.BtnContainer>
       </div>
     </div>
   );
@@ -135,22 +107,27 @@ const PostWriteBox = ({ post }) => {
 export default PostWriteBox;
 
 const S = {
-  WriteForm: styled.form``,
   MainInfoContainer: styled.div`
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   `,
   TypeSelect: styled.select`
-    width: 10%;
-    height: 50px;
+    width: 15%;
+    height: 55px;
   `,
   TitleInput: styled.input`
-    width: 50%;
+    width: 60%;
     height: 50px;
-
-    margin: 2%;
+    margin: 10px;
   `,
   PriceInput: styled.input`
-    width: 15%;
+    width: 20%;
     height: 50px;
+    margin-right: 5px;
+  `,
+  BtnContainer: styled.div`
+    display: flex;
+    justify-content: center;
   `,
 };

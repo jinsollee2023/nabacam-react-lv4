@@ -1,53 +1,39 @@
 {
   "posts": [
     {
-      "title": "가방",
-      "type": "goodItem",
-      "price": "12000",
-      "content": "가방최고!",
-      "id": 8
-    },
-    {
-      "title": "화장품",
-      "type": "goodItem",
-      "price": "22000",
-      "content": "화장품 샀당",
-      "id": 9
-    },
-    {
-      "title": "신발",
-      "type": "badItem",
-      "price": "30000",
-      "content": "신발 샀당ㅠ",
-      "id": 10
-    },
-    {
-      "title": "박카스맛 젤리",
-      "type": "badItem",
-      "price": "1000",
-      "content": "<p>잠이 안깨용…</p>",
-      "id": 11
-    },
-    {
       "title": "물통",
       "type": "badItem",
-      "price": "30000",
+      "price": 30000,
       "content": "<p>너무 비싸요</p>",
       "id": 12
     },
     {
       "title": "머리띠",
       "type": "goodItem",
-      "price": "5000",
+      "price": 40000,
       "content": "<p>5000원인데 아주 좋구용</p><p>머리도 안조이구용</p><p>너무 만족스러운 구매입니당</p>",
       "id": 13
     },
     {
       "title": "꾸로미 스티커 1",
       "type": "badItem",
-      "price": "500",
+      "price": 200000,
       "content": "<figure class=\"image\"><img src=\"https://firebasestorage.googleapis.com/v0/b/ndns-c8353.appspot.com/o/%E1%84%81%E1%85%AE%E1%84%85%E1%85%A9%E1%84%86%E1%85%B5.jpeg?alt=media&amp;token=497b686a-8a78-4954-b036-6cdd23a38a4d\"></figure><p>500원 값어치도 못하는 둣ㅠㅠㅠ<br>돈 아까어ㅠㅠㅠ 힝</p>",
       "id": 14
+    },
+    {
+      "title": "333333333",
+      "type": "badItem",
+      "price": 20,
+      "content": "<p>11112111213333333</p>",
+      "id": 15
+    },
+    {
+      "title": "가격 테스트",
+      "type": "goodItem",
+      "price": 10000,
+      "content": "<p>가격 테스트</p>",
+      "id": 17
     }
   ],
   "images": [
