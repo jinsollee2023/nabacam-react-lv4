@@ -26,7 +26,7 @@ const PostDetailBox = () => {
   const deleteBtnHandler = () => {
     mutationDelete.mutate(detailPost.id);
     alert("삭제 성공!");
-    navigate("/");
+    navigate("/home");
   };
 
   const editBtnHandler = () => {

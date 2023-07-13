@@ -2,17 +2,25 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { TbSmartHome } from "react-icons/tb";
+import { BiLogOut } from "react-icons/bi";
+import { removeCookie } from "../../../cookie/cookies";
 
 const Header = () => {
   const navigate = useNavigate();
+  const logOutBtnHandler = () => {
+    removeCookie("accessToken");
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <S.HeaderContainer>
-      <S.HomeBox onClick={() => navigate("/")}>
+      <S.HomeBox onClick={() => navigate("/home")}>
         <TbSmartHome size={45} />
       </S.HomeBox>
-      <S.ProfileBox>
-        <S.Img src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMTgy/MDAxNjA0MjI4ODc1NDMw.Ex906Mv9nnPEZGCh4SREknadZvzMO8LyDzGOHMKPdwAg.ZAmE6pU5lhEdeOUsPdxg8-gOuZrq_ipJ5VhqaViubI4g.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%95%98%EB%8A%98%EC%83%89.jpg?type=w800" />
-        <span>익명의 구매자님 안녕!</span>
+      <S.ProfileBox onClick={logOutBtnHandler}>
+        <BiLogOut size={30} />
+        <S.ProfileSpan>Log Out</S.ProfileSpan>
       </S.ProfileBox>
     </S.HeaderContainer>
   );
@@ -29,11 +37,7 @@ const S = {
     display: flex;
     justify-content: space-between;
   `,
-  Img: styled.img`
-    width: 40px;
-    border-radius: 100%;
-    margin-right: 15px;
-  `,
+
   HomeBox: styled.div`
     display: flex;
     align-items: center;
@@ -43,5 +47,9 @@ const S = {
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
+  `,
+  ProfileSpan: styled.span`
+    margin-left: 10px;
   `,
 };

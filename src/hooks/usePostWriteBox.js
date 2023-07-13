@@ -40,7 +40,7 @@ const usePostWriteBox = (initialState) => {
         content,
       };
       mutationAdd.mutate(newPost);
-      navigate("/");
+      navigate("/home");
     } else alert("모든 항목을 작성해주세요!");
   };
 

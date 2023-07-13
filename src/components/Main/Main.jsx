@@ -20,7 +20,7 @@ const Main = () => {
   return (
     <div>
       <S.MainContainer>
-        <S.MainTitle>내돈내산</S.MainTitle>
+        <S.MainTitle>🛍 내돈내산 🛍</S.MainTitle>
         <S.SubTitle>오늘의 잘산템은? 오늘의 못산템은?</S.SubTitle>
         <div>
           <Button
@@ -53,7 +53,7 @@ const S = {
     align-items: center;
   `,
   MainTitle: styled.h1`
-    font-size: 100px;
+    font-size: 90px;
     font-weight: 1000;
   `,
   SubTitle: styled.p`

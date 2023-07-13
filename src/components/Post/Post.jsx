@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { BiLike, BiDislike } from "react-icons/bi";
-import Button from "../common/Button/Button";
 
 const Post = ({ item }) => {
   const navigate = useNavigate();
