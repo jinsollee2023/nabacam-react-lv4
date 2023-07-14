@@ -51,6 +51,7 @@ const LogUser = () => {
         />
         <S.LoginInput
           placeholder="pw"
+          type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
