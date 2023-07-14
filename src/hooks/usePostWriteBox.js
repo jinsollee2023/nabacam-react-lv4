@@ -1,6 +1,6 @@
-import useInput from "./useInput";
 import { useNavigate } from "react-router-dom";
-import usePosts from "./usePosts";
+import usePosts from "./usePostsQueries";
+import useInput from "./usePostInput";
 
 const addCommas = (value) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

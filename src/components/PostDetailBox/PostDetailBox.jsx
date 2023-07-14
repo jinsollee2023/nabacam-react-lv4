@@ -2,10 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
-import usePosts from "../../hooks/usePosts";
 import Button from "../common/Button/Button";
 import { styled } from "styled-components";
 import { BiLike, BiDislike } from "react-icons/bi";
+import usePosts from "../../hooks/usePostsQueries";
 
 const PostDetailBox = () => {
   const params = useParams();

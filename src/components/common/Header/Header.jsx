@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { TbSmartHome } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
-import { removeCookie } from "../../../cookie/cookies";
+import { getCookie, removeCookie } from "../../../cookie/cookies";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const logOutBtnHandler = () => {
     removeCookie("accessToken");
     navigate("/");
-    window.location.reload();
   };
 
   return (

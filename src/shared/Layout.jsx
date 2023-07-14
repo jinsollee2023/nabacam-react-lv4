@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/common/Header/Header";
 import { styled } from "styled-components";
-import useUserQueries from "../hooks/useUsersQueries";
+import { getCookie } from "../cookie/cookies";
 
 const Layout = ({ children }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -10,25 +10,28 @@ const Layout = ({ children }) => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
 
+  const accessToken = getCookie("accessToken");
+  console.log("aaaaa", accessToken);
+  const [cookie, setCookie] = useState(accessToken);
+
+  useEffect(() => {
+    setCookie(accessToken);
+  }, [accessToken]);
+
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   }, []);
 
-  const { data } = useUserQueries();
-
-  if (
-    window.location.pathname === "/" ||
-    window.location.pathname === "/register" ||
-    !data
-  ) {
-    return (
-      <>
-        <StLayout>{children}</StLayout>
-      </>
-    );
-  } else
-    return (
-      <>
+  // if (!cookie) {
+  //   return (
+  //     <>
+  //       <StLayout>{children}</StLayout>
+  //     </>
+  //   );
+  // } else {
+  return (
+    <>
+      {cookie && (
         <StHeader
           style={
             scrollPosition > 50 ? { boxShadow: "0 1px 20px 1px #EB455F" } : null
@@ -36,9 +39,10 @@ const Layout = ({ children }) => {
         >
           <Header />
         </StHeader>
-        <StLayout>{children}</StLayout>
-      </>
-    );
+      )}
+      <StLayout>{children}</StLayout>
+    </>
+  );
 };
 
 export default Layout;

@@ -1,15 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { addUser, getUsers, loginUser } from "../api/user";
+import { useMutation, useQueryClient } from "react-query";
+import { addUser, loginUser } from "../api/user";
 import { useNavigate } from "react-router-dom";
 
 const useUserQueries = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data, isLoading, isError } = useQuery("users", getUsers, {
-    onError: () => {
-      alert("토큰이 만료되었습니다. \n다시 로그인해주세요.");
-    },
-  });
 
   const addUserMutation = useMutation(addUser, {
     onSuccess: () => {
@@ -36,9 +31,6 @@ const useUserQueries = () => {
   });
 
   return {
-    data,
-    isLoading,
-    isError,
     addUserMutation,
     loginUserMutation,
   };

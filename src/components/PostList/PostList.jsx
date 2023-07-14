@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Post from "../Post/Post";
-import usePosts from "../../hooks/usePosts";
 import Button from "../common/Button/Button";
 import { styled } from "styled-components";
+import usePosts from "../../hooks/usePostsQueries";
 
 const PostList = () => {
   const { isLoading, isError, data } = usePosts();
