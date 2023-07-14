@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
   };
 
   const accessToken = getCookie("accessToken");
-  console.log("aaaaa", accessToken);
   const [cookie, setCookie] = useState(accessToken);
 
   useEffect(() => {

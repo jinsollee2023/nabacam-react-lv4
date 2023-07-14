@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "../cookie/cookies";
 
 // 회원가입
 const addUser = async (newUser) => {
-  await axios.post("http://3.38.191.164/register", newUser);
+  await axios.post(`http://3.38.191.164/register`, newUser);
 };
 
 // 로그인
